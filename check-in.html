@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Ticket</title>
+    <style>
+        body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+}
+
+#ticket {
+    width: 90%;
+    max-width: 400px;
+    background-color: #009BDE;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+}
+
+#name, #status, #date, #time {
+    margin: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <div id="ticket">
+        <div id="name">Max Mustermann</div>
+        <div id="status">CHECKED-IN</div>
+        <div id="date">Datum: <span id="current-date"></span></div>
+        <div id="time">Zeit: <span id="current-time"></span></div>
+    </div>
+    <script>
+        function updateDateTime() {
+    var currentDate = new Date();
+    document.getElementById('current-date').textContent = currentDate.toLocaleDateString('de-DE');
+    document.getElementById('current-time').textContent = currentDate.toLocaleTimeString('de-DE');
+}
+
+// Aktualisiere Datum und Uhrzeit sofort und danach jede Sekunde
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+    </script>
+</body>
+</html>
