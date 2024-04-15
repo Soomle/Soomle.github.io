@@ -3,91 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Ticket</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Check-in Karte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
        body, html {
-    height: 100%;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card {
-    width: 300px; /* oder eine Größe Ihrer Wahl */
-    background-color: #0077CC; /* Blauton anpassen, wie im Originalbild */
-    padding: 20px;
-    border-radius: 18px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten für die Tiefe */
+    width: 300px;
+    background-color: #4a90e2; /* Angepasste Farbe basierend auf dem Bild */
+    padding: 1em;
+    border-radius: 10px; /* Leicht abgerundete Ecken */
     text-align: center;
-    color: white;
     position: relative;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für die Tiefe */
 }
 
 .initials {
-    font-size: 64px; /* Größe der Initialen anpassen */
-    font-weight: 700; /* Schriftart für Initialen */
+    font-size: 5em; /* Große Initialen */
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    top: 10px;
+    left: 0;
     opacity: 0.2; /* Transparenz der Initialen */
 }
 
 .info {
-    z-index: 2;
+    position: relative;
+    top: 50px; /* Verschiebung nach unten, abhängig von der Größe der Initialen */
 }
 
 .name {
-    font-size: 22px;
-    font-weight: 700; /* Schriftart für den Namen */
-    margin-bottom: 5px;
+    font-weight: bold;
+    margin: 0.5em 0;
 }
 
 .status {
-    font-size: 18px;
-    background: green; /* Hintergrund für Status */
+    font-size: 1.2em;
+    background: limegreen; /* Leuchtendes Grün für den Check-In-Status */
+    padding: 0.2em 0.6em;
+    border-radius: 5px; /* Abgerundete Ecken für den Status */
     display: inline-block;
-    padding: 5px;
-    border-radius: 5px;
-    margin-bottom: 10px;
 }
 
 .date, .time {
-    font-size: 16px;
-    margin-bottom: 5px;
+    margin: 0.5em 0;
 }
 
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="initials">RV</div>
+        <div class="initials" id="initials">RV</div>
         <div class="info">
-            <div class="name">Ruslan Valiyev</div>
-            <div class="status">CHECKED-IN</div>
-            <div class="date">Datum: <span id="current-date"></span></div>
-            <div class="time">Zeit: <span id="current-time"></span></div>
+            <h1 class="name" id="name">Ruslan Valiyev</h1>
+            <h2 class="status">CHECKED-IN</h2>
+            <p class="date">Datum: <span id="current-date"></span></p>
+            <p class="time">Zeit: <span id="current-time"></span></p>
         </div>
     </div>
     <script>
         function updateDateTime() {
-    var currentDate = new Date();
-    document.getElementById('current-date').textContent = currentDate.toLocaleDateString('de-DE');
-    document.getElementById('current-time').textContent = currentDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    var now = new Date();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+    document.getElementById('current-time').textContent = now.toLocaleTimeString('de-DE', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
 }
 
-// Initialen setzen
 function setInitials(firstName, lastName) {
-    var initials = firstName.charAt(0) + lastName.charAt(0);
-    document.querySelector('.initials').textContent = initials.toUpperCase();
+    document.getElementById('initials').textContent = firstName.charAt(0) + lastName.charAt(0);
+    document.getElementById('name').textContent = firstName + ' ' + lastName;
 }
 
+// Initialen und Name setzen
+setInitials('Ruslan', 'Valiyev'); // Diese Daten müssten dynamisch gesetzt werden
+
+// Datum und Zeit beim Laden der Seite und dann jede Sekunde aktualisieren
 updateDateTime();
-setInterval
+setInterval(updateDateTime, 1000);
 
     </script>
 </body>
