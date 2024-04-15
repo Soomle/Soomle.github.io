@@ -4,51 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check-in Ticket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
+       body, html {
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #f4f4f4;
 }
 
-#ticket {
-    width: 90%;
-    max-width: 400px;
-    background-color: #009BDE;
+.card {
+    width: 300px; /* oder eine Größe Ihrer Wahl */
+    background-color: #0077CC; /* Blauton anpassen, wie im Originalbild */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 18px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten für die Tiefe */
     text-align: center;
     color: white;
+    position: relative;
 }
 
-#name, #status, #date, #time {
-    margin: 10px 0;
+.initials {
+    font-size: 64px; /* Größe der Initialen anpassen */
+    font-weight: 700; /* Schriftart für Initialen */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.2; /* Transparenz der Initialen */
+}
+
+.info {
+    z-index: 2;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: 700; /* Schriftart für den Namen */
+    margin-bottom: 5px;
+}
+
+.status {
+    font-size: 18px;
+    background: green; /* Hintergrund für Status */
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.date, .time {
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
     </style>
 </head>
 <body>
-    <div id="ticket">
-        <div id="name">Ruslan Valiyev</div>
-        <div id="status">CHECKED-IN</div>
-        <div id="date">Datum: <span id="current-date"></span></div>
-        <div id="time">Zeit: <span id="current-time"></span></div>
+    <div class="card">
+        <div class="initials">RV</div>
+        <div class="info">
+            <div class="name">Ruslan Valiyev</div>
+            <div class="status">CHECKED-IN</div>
+            <div class="date">Datum: <span id="current-date"></span></div>
+            <div class="time">Zeit: <span id="current-time"></span></div>
+        </div>
     </div>
     <script>
         function updateDateTime() {
     var currentDate = new Date();
     document.getElementById('current-date').textContent = currentDate.toLocaleDateString('de-DE');
-    document.getElementById('current-time').textContent = currentDate.toLocaleTimeString('de-DE');
+    document.getElementById('current-time').textContent = currentDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
-// Aktualisiere Datum und Uhrzeit sofort und danach jede Sekunde
+// Initialen setzen
+function setInitials(firstName, lastName) {
+    var initials = firstName.charAt(0) + lastName.charAt(0);
+    document.querySelector('.initials').textContent = initials.toUpperCase();
+}
+
 updateDateTime();
-setInterval(updateDateTime, 1000);
+setInterval
 
     </script>
 </body>
